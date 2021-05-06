@@ -18,34 +18,51 @@ const Form = () => {
 
 	return (
 		<div>
+			<h2>Login to application</h2>
 			<form onSubmit={onSubmitHandler}>
-				<input
-					type='text'
-					name='username'
-					value={username}
-					onChange={(e) => {
-						setUsername(e.target.value)
-					}}
-				/>
+				<div>
+					<label>
+						Username
+						<input
+							type='text'
+							name='username'
+							value={username}
+							onChange={(e) => {
+								setUsername(e.target.value)
+							}}
+						/>
+					</label>
+				</div>
 
-				<input
-					type='password'
-					name='password'
-					value={password}
-					onChange={(e) => {
-						setPassword(e.target.value)
-					}}
-				/>
+				<div>
+					<label>
+						Password
+						<input
+							type='password'
+							name='password'
+							value={password}
+							onChange={(e) => {
+								setPassword(e.target.value)
+							}}
+						/>
+					</label>
+				</div>
 
-				<input
-					type='password'
-					name='confirmPassword'
-					value={confirmPassword}
-					onChange={(e) => {
-						setConfirmPassword(e.target.value)
-					}}
-				/>
-				<button type='submit'>Submit</button>
+				<div>
+					<label>
+						Confirm password
+						<input
+							type='password'
+							name='confirmPassword'
+							value={confirmPassword}
+							onChange={(e) => {
+								setConfirmPassword(e.target.value)
+							}}
+						/>
+					</label>
+				</div>
+
+				<button type='submit'>Login</button>
 			</form>
 		</div>
 	)
