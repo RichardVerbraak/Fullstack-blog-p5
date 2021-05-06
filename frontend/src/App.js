@@ -7,6 +7,11 @@ const App = () => {
 	const [blogs, setBlogs] = useState([])
 	const [user, setUser] = useState(null)
 
+	const logout = () => {
+		localStorage.removeItem('user')
+		setUser(null)
+	}
+
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('user'))
 		if (user) {
@@ -19,7 +24,16 @@ const App = () => {
 
 	return (
 		<div>
-			{!user && <Form />}
+			{user ? (
+				<div>
+					{' '}
+					<p>{user.username} logged in</p>
+					<button onClick={logout}></button>
+				</div>
+			) : (
+				<Form />
+			)}
+
 			<h2>blogs</h2>
 			{blogs.map((blog) => (
 				<Blog key={blog.id} blog={blog} />
