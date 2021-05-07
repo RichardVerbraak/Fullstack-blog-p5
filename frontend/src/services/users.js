@@ -1,8 +1,6 @@
 import axios from 'axios'
 
 const loginUser = async (user) => {
-	console.log(user)
-
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -14,8 +12,6 @@ const loginUser = async (user) => {
 		user,
 		config
 	)
-
-	console.log(data)
 
 	localStorage.setItem('user', JSON.stringify(data))
 

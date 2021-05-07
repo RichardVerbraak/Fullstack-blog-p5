@@ -1,24 +1,32 @@
 import React, { useState } from 'react'
 import { loginUser } from '../services/users'
 
-const Form = () => {
+const UserForm = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
+	const [message, setMessage] = useState('')
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault()
-		if (password === confirmPassword) {
-			loginUser({ username, password })
-			console.log('submitted')
-		} else {
-			console.log('does not match')
+
+		try {
+			if (password === confirmPassword) {
+				loginUser({ username, password })
+				console.log('submitted')
+			} else {
+				console.log('does not match')
+			}
+		} catch (error) {
+			setMessage('Wrong credentials')
+			setTimeout(() => {
+				setMessage('')
+			}, 5000)
 		}
 	}
 
 	return (
 		<div>
-			<h2>Login to application</h2>
 			<form onSubmit={onSubmitHandler}>
 				<div>
 					<label>
@@ -68,4 +76,4 @@ const Form = () => {
 	)
 }
 
-export default Form
+export default UserForm

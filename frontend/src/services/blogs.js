@@ -13,4 +13,20 @@ const getAll = async (token) => {
 	return data
 }
 
+const addNewBlog = async (blog, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	}
+
+	const { data } = await axios.post(
+		'http://localhost:3003/api/blogs',
+		blog,
+		config
+	)
+
+	console.log(data)
+}
+
 export { getAll }

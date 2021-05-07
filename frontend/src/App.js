@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
-import Form from './components/Form'
+import CreateBlogForm from './components/CreateBlogForm'
+import UserForm from './components/UserForm'
 import { getAll } from './services/blogs'
 
 const App = () => {
@@ -10,34 +11,51 @@ const App = () => {
 	const logout = () => {
 		localStorage.removeItem('user')
 		setUser(null)
+		setBlogs([])
 	}
 
 	useEffect(() => {
-		const user = JSON.parse(localStorage.getItem('user'))
+		const userFromLocalStorage = JSON.parse(localStorage.getItem('user'))
+		if (userFromLocalStorage) {
+			setUser(userFromLocalStorage)
+		}
+	}, [])
+
+	useEffect(() => {
+		console.log(user)
 		if (user) {
-			setUser(user)
 			getAll(user.token).then((data) => {
 				setBlogs(data)
 			})
 		}
-	}, [])
+	}, [user])
 
 	return (
 		<div>
 			{user ? (
 				<div>
-					{' '}
-					<p>{user.username} logged in</p>
-					<button onClick={logout}></button>
+					<h2>Blogs</h2>
+					<div>
+						<p>
+							{user.username} logged in{' '}
+							<span>
+								<button onClick={logout}>Logout</button>
+							</span>
+						</p>
+					</div>
+
+					<CreateBlogForm />
+
+					{blogs.map((blog) => (
+						<Blog key={blog.id} blog={blog} />
+					))}
 				</div>
 			) : (
-				<Form />
+				<div>
+					<h2>Login to application</h2>
+					<UserForm />
+				</div>
 			)}
-
-			<h2>blogs</h2>
-			{blogs.map((blog) => (
-				<Blog key={blog.id} blog={blog} />
-			))}
 		</div>
 	)
 }
