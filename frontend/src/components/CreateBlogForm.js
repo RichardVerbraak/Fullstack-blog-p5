@@ -1,16 +1,33 @@
 import React, { useState } from 'react'
+import { addNewBlog, getAll } from '../services/blogs'
 
-const CreateBlogForm = () => {
+import Message from './Message'
+
+const CreateBlogForm = ({ user, setBlogs }) => {
 	const [title, setTitle] = useState('')
 	const [author, setAuthor] = useState('')
 	const [url, setUrl] = useState('')
+	const [message, setMessage] = useState('')
 
-	const onSubmitHandler = (e) => {
+	const onSubmitHandler = async (e) => {
 		e.preventDefault()
+
+		const response = await addNewBlog({ title, author, url }, user.token)
+
+		setMessage(`A new blog ${response.title} by ${response.author} added!`)
+
+		setTimeout(() => {
+			setMessage('')
+		}, 5000)
+
+		getAll(user.token).then((data) => {
+			setBlogs(data)
+		})
 	}
 
 	return (
 		<div>
+			{message && <Message message={message} />}
 			<h2>Create new</h2>
 			<form onSubmit={onSubmitHandler}>
 				<div>
@@ -45,7 +62,7 @@ const CreateBlogForm = () => {
 					<label>
 						URL:
 						<input
-							type='url'
+							type='text'
 							name='url'
 							value={url}
 							onChange={(e) => {

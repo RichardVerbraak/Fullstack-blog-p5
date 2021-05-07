@@ -26,7 +26,7 @@ const addNewBlog = async (blog, token) => {
 		config
 	)
 
-	console.log(data)
+	return data
 }
 
-export { getAll }
+export { getAll, addNewBlog }
