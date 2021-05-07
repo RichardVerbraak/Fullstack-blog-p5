@@ -22,7 +22,6 @@ const App = () => {
 	}, [])
 
 	useEffect(() => {
-		console.log(user)
 		if (user) {
 			getAll(user.token).then((data) => {
 				setBlogs(data)
@@ -53,7 +52,7 @@ const App = () => {
 			) : (
 				<div>
 					<h2>Login to application</h2>
-					<UserForm />
+					<UserForm setUser={setUser} />
 				</div>
 			)}
 		</div>
