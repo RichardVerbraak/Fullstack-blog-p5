@@ -44,15 +44,15 @@ const App = () => {
 						</p>
 					</div>
 
+					{visible && <CreateBlogForm user={user} setBlogs={setBlogs} />}
+
 					<button
 						onClick={() => {
 							setVisible(!visible)
 						}}
 					>
-						create blog
+						{visible ? 'cancel' : 'create blog'}
 					</button>
-
-					{visible && <CreateBlogForm user={user} setBlogs={setBlogs} />}
 
 					{blogs.map((blog) => (
 						<Blog key={blog.id} blog={blog} />
