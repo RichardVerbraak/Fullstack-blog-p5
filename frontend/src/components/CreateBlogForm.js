@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addNewBlog, getAll } from '../services/blogs'
+import { addNewBlog, getAllBlogs } from '../services/blogs'
 
 import Message from './Message'
 
@@ -21,7 +21,7 @@ const CreateBlogForm = ({ user, setBlogs }) => {
 				setMessage('')
 			}, 5000)
 
-			getAll(user.token).then((data) => {
+			getAllBlogs(user.token).then((data) => {
 				setBlogs(data)
 			})
 		} catch (error) {

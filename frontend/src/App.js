@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import CreateBlogForm from './components/CreateBlogForm'
 import UserForm from './components/UserForm'
-import { getAll } from './services/blogs'
+import { getAllBlogs } from './services/blogs'
 
 const App = () => {
 	const [blogs, setBlogs] = useState([])
@@ -24,7 +24,7 @@ const App = () => {
 
 	useEffect(() => {
 		if (user) {
-			getAll(user.token).then((data) => {
+			getAllBlogs(user.token).then((data) => {
 				setBlogs(data)
 			})
 		}
@@ -55,7 +55,7 @@ const App = () => {
 					</button>
 
 					{blogs.map((blog) => (
-						<Blog key={blog.id} blog={blog} />
+						<Blog key={blog.id} blog={blog} user={user} />
 					))}
 				</div>
 			) : (

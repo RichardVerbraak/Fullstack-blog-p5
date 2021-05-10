@@ -1,4 +1,3 @@
-const e = require('cors')
 const jwt = require('jsonwebtoken')
 const Blog = require('../models/blogModel')
 const User = require('../models/userModel')
@@ -85,5 +84,25 @@ const updateBlog = async (req, res, next) => {
 		next(error)
 	}
 }
+
+// const likeBlog = async (req, res, next) => {
+// 	try {
+// 		const id = req.params.id
+
+// 		const blog = await Blog.findById(id)
+
+// 		const { likes } = req.body
+
+// 		blog.likes = likes || blog.likes
+
+// 		const updatedBlog = await blog.save()
+
+// 		res.status(200)
+// 		res.send(updatedBlog)
+// 	} catch (error) {
+// 		res.status(400)
+// 		next(error)
+// 	}
+// }
 
 module.exports = { getAllBlogs, addNewBlog, deleteBlog, updateBlog }
