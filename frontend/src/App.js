@@ -7,6 +7,7 @@ import { getAll } from './services/blogs'
 const App = () => {
 	const [blogs, setBlogs] = useState([])
 	const [user, setUser] = useState(null)
+	const [visible, setVisible] = useState(false)
 
 	const logout = () => {
 		localStorage.removeItem('user')
@@ -43,7 +44,15 @@ const App = () => {
 						</p>
 					</div>
 
-					<CreateBlogForm user={user} setBlogs={setBlogs} />
+					<button
+						onClick={() => {
+							setVisible(!visible)
+						}}
+					>
+						create blog
+					</button>
+
+					{visible && <CreateBlogForm user={user} setBlogs={setBlogs} />}
 
 					{blogs.map((blog) => (
 						<Blog key={blog.id} blog={blog} />

@@ -55,7 +55,7 @@ const loginUser = async (req, res, next) => {
 			})
 		} else {
 			res.status(401)
-			res.json({ message: 'Password does not match' })
+			res.send({ message: 'Wrong username or password' })
 		}
 	} catch (error) {
 		res.status(500)

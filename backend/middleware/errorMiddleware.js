@@ -5,6 +5,8 @@ const errorHandler = (error, req, res, next) => {
 	// Set the status to the error code we made (convert 200 to 500 for reasons above)
 	res.status(errorStatus)
 
+	console.log(error.message)
+
 	// Send error message back
 	res.json({
 		message: error.message,
