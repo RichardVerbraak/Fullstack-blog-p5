@@ -12,17 +12,29 @@ const CreateBlogForm = ({ user, setBlogs }) => {
 	const onSubmitHandler = async (e) => {
 		e.preventDefault()
 
-		const response = await addNewBlog({ title, author, url }, user.token)
+		try {
+			const response = await addNewBlog({ title, author, url }, user.token)
 
-		setMessage(`A new blog ${response.title} by ${response.author} added!`)
+			setMessage(`A new blog ${response.title} by ${response.author} added!`)
 
-		setTimeout(() => {
-			setMessage('')
-		}, 5000)
+			setTimeout(() => {
+				setMessage('')
+			}, 5000)
 
-		getAll(user.token).then((data) => {
-			setBlogs(data)
-		})
+			getAll(user.token).then((data) => {
+				setBlogs(data)
+			})
+		} catch (error) {
+			const errorMessage = error.response
+				? error.response.data.message
+				: error.response
+
+			setMessage(errorMessage)
+
+			setTimeout(() => {
+				setMessage('')
+			}, 5000)
+		}
 	}
 
 	return (

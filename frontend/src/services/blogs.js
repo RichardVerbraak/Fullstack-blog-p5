@@ -16,6 +16,7 @@ const getAll = async (token) => {
 const addNewBlog = async (blog, token) => {
 	const config = {
 		headers: {
+			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
 		},
 	}
