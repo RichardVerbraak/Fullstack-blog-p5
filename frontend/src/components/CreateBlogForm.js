@@ -15,6 +15,10 @@ const CreateBlogForm = ({ user, setBlogs }) => {
 		try {
 			const response = await addNewBlog({ title, author, url }, user.token)
 
+			setTitle('')
+			setAuthor('')
+			setUrl('')
+
 			setMessage(`A new blog ${response.title} by ${response.author} added!`)
 
 			setTimeout(() => {

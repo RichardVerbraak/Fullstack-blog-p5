@@ -59,7 +59,9 @@ const App = () => {
 						{visible ? 'cancel' : 'create blog'}
 					</button>
 
-					{blogs && blogs.length > 0 && <Blogs blogs={blogs} user={user} />}
+					{blogs && blogs.length > 0 && (
+						<Blogs blogs={blogs} user={user} setBlogs={setBlogs} />
+					)}
 				</div>
 			) : (
 				<div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { likeBlog } from '../services/blogs'
+import { getAllBlogs, likeBlog } from '../services/blogs'
 
-const Blogs = ({ blogs, user }) => {
+const Blogs = ({ blogs, user, setBlogs }) => {
 	const [showDetails, setShowDetails] = useState(false)
 
 	const blogStyle = {
@@ -10,21 +10,30 @@ const Blogs = ({ blogs, user }) => {
 		margin: '10px 0px',
 	}
 
+	// Adds a like and then fetches blogs again
+	const like = async (blog, token) => {
+		await likeBlog(blog, token)
+		const response = await getAllBlogs(token)
+		setBlogs(response)
+	}
+
 	return blogs.map((blog) => {
 		return (
 			<div key={blog.id} style={blogStyle}>
-				<p>
-					{blog.title} {blog.author}
-					<span>
-						<button
-							onClick={() => {
-								setShowDetails(!showDetails)
-							}}
-						>
-							View
-						</button>
-					</span>
-				</p>
+				<div>
+					<p>
+						{blog.title} {blog.author}
+						<span>
+							<button
+								onClick={() => {
+									setShowDetails(!showDetails)
+								}}
+							>
+								View
+							</button>
+						</span>
+					</p>
+				</div>
 
 				{showDetails && (
 					<div>
@@ -34,7 +43,7 @@ const Blogs = ({ blogs, user }) => {
 							<span>
 								<button
 									onClick={() => {
-										likeBlog(blog, user.token)
+										like(blog, user.token)
 									}}
 								>
 									Like
