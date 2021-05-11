@@ -47,7 +47,9 @@ const App = () => {
 						</p>
 					</div>
 
-					{visible && <CreateBlogForm user={user} setBlogs={setBlogs} />}
+					{visible && (
+						<CreateBlogForm user={user} blogs={blogs} setBlogs={setBlogs} />
+					)}
 
 					<button
 						onClick={() => {

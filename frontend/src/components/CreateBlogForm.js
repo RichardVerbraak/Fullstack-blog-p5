@@ -21,9 +21,8 @@ const CreateBlogForm = ({ user, setBlogs }) => {
 				setMessage('')
 			}, 5000)
 
-			getAllBlogs(user.token).then((data) => {
-				setBlogs(data)
-			})
+			const data = await getAllBlogs(user.token)
+			setBlogs(data)
 		} catch (error) {
 			const errorMessage = error.response
 				? error.response.data.message
