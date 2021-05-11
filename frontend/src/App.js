@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Blog from './components/Blog'
+import Blogs from './components/Blogs'
 import CreateBlogForm from './components/CreateBlogForm'
 import UserForm from './components/UserForm'
 import { getAllBlogs } from './services/blogs'
@@ -24,9 +24,12 @@ const App = () => {
 
 	useEffect(() => {
 		if (user) {
-			getAllBlogs(user.token).then((data) => {
-				setBlogs(data)
-			})
+			const getBlogs = async () => {
+				const response = await getAllBlogs(user.token)
+
+				setBlogs(response)
+			}
+			getBlogs()
 		}
 	}, [user])
 
@@ -54,9 +57,7 @@ const App = () => {
 						{visible ? 'cancel' : 'create blog'}
 					</button>
 
-					{blogs.map((blog) => (
-						<Blog key={blog.id} blog={blog} user={user} />
-					))}
+					{blogs && blogs.length > 0 && <Blogs blogs={blogs} user={user} />}
 				</div>
 			) : (
 				<div>

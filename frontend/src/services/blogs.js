@@ -10,8 +10,6 @@ const getAllBlogs = async (token) => {
 
 	const { data } = await axios.get('http://localhost:3003/api/blogs', config)
 
-	console.log(data)
-
 	return data
 }
 
