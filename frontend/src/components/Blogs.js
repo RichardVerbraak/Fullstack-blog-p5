@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { getAllBlogs, likeBlog } from '../services/blogs'
 
+// useState holds the ID of the one that is clicked => the blog that matches the one in state will show it's content
+// Hide button sets state back to null
+
 const Blogs = ({ blogs, user, setBlogs }) => {
 	const [currentBlog, setCurrentBlog] = useState(null)
 
