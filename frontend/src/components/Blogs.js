@@ -20,55 +20,72 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 		setBlogs(response)
 	}
 
-	return blogs.map((blog) => {
-		return (
-			<div key={blog.id} style={blogStyle}>
-				<div>
-					<p>
-						{blog.title} {blog.author}
-						<span>
-							{blog.id === currentBlog ? (
-								<button
-									onClick={() => {
-										setCurrentBlog(null)
-									}}
-								>
-									Hide
-								</button>
-							) : (
-								<button
-									onClick={() => {
-										setCurrentBlog(blog.id)
-									}}
-								>
-									View
-								</button>
-							)}
-						</span>
-					</p>
-				</div>
+	console.log()
 
-				{blog.id === currentBlog && (
+	return blogs
+		.sort((a, b) => {
+			// return value is higher than 0 => b is sorted before a
+			if (a.likes < b.likes) {
+				return 1
+			}
+
+			// return value is less than 0 => a is sorted before b
+			if (a.likes > b.likes) {
+				return -1
+			}
+
+			// return value is 0 than a and b unchanged with respect to each other but sorted with respect to all different elements
+			return 0
+		})
+		.map((blog) => {
+			return (
+				<div key={blog.id} style={blogStyle}>
 					<div>
-						<p>{blog.url}</p>
 						<p>
-							{blog.likes}
+							{blog.title} {blog.author}
 							<span>
-								<button
-									onClick={() => {
-										like(blog, user.token)
-									}}
-								>
-									Like
-								</button>
+								{blog.id === currentBlog ? (
+									<button
+										onClick={() => {
+											setCurrentBlog(null)
+										}}
+									>
+										Hide
+									</button>
+								) : (
+									<button
+										onClick={() => {
+											setCurrentBlog(blog.id)
+										}}
+									>
+										View
+									</button>
+								)}
 							</span>
 						</p>
-						<p>Creator</p>
 					</div>
-				)}
-			</div>
-		)
-	})
+
+					{blog.id === currentBlog && (
+						<div>
+							<p>{blog.url}</p>
+							<p>
+								{blog.likes}
+								<span>
+									<button
+										onClick={() => {
+											like(blog, user.token)
+										}}
+									>
+										Like
+									</button>
+								</span>
+							</p>
+							<p>Creator</p>
+						</div>
+					)}
+				</div>
+			)
+		})
 }
 
 export default Blogs
