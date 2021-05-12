@@ -13,7 +13,7 @@ const CreateBlogForm = ({ user, setBlogs }) => {
 		e.preventDefault()
 
 		try {
-			const response = await addNewBlog({ title, author, url }, user.token)
+			const response = await addNewBlog({ title, author, url }, user)
 
 			setTitle('')
 			setAuthor('')

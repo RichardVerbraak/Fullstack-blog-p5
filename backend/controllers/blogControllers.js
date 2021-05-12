@@ -15,11 +15,17 @@ const getAllBlogs = async (req, res) => {
 // Could refactor the authentication process into it's own middleware
 const addNewBlog = async (req, res, next) => {
 	try {
-		const { title, author, url, likes, user } = req.body
+		const { title, author, url, likes } = req.body.blog
 
 		const foundUser = req.user
 
-		const blog = await Blog.create({ title, author, url, likes, user })
+		const blog = await Blog.create({
+			title,
+			author,
+			url,
+			likes,
+			user: foundUser._id,
+		})
 
 		foundUser.blogs = [...foundUser.blogs, blog._id]
 		await foundUser.save()
@@ -48,8 +54,10 @@ const deleteBlog = async (req, res, next) => {
 			user.blogs = user.blogs.filter((blog) => {
 				return blog.toString() !== id
 			})
-
 			await user.save()
+
+			// Delete blog from Blogs document
+			await Blog.findByIdAndDelete(id)
 
 			res.status(200)
 			res.json({ message: 'Blog deleted' })

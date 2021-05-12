@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getAllBlogs, likeBlog } from '../services/blogs'
+import { getAllBlogs, likeBlog, deleteBlog } from '../services/blogs'
 
 // useState holds the ID of the one that is clicked => the blog that matches the one in state will show it's content
 // Hide button sets state back to null
@@ -14,13 +14,23 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 	}
 
 	// Adds a like and then fetches blogs again
-	const like = async (blog, token) => {
+	const likeBlogHandler = async (blog, token) => {
 		await likeBlog(blog, token)
 		const response = await getAllBlogs(token)
 		setBlogs(response)
 	}
 
-	console.log()
+	const deleteBlogHandler = async (blog, token) => {
+		const confirm = window.confirm(
+			`Remove blog ${blog.title} by ${blog.author} ?`
+		)
+
+		if (confirm) {
+			await deleteBlog(blog, user.token)
+			const response = await getAllBlogs(token)
+			setBlogs(response)
+		}
+	}
 
 	return blogs
 		.sort((a, b) => {
@@ -73,7 +83,7 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 								<span>
 									<button
 										onClick={() => {
-											like(blog, user.token)
+											likeBlogHandler(blog, user.token)
 										}}
 									>
 										Like
@@ -81,6 +91,13 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 								</span>
 							</p>
 							<p>Creator</p>
+							<button
+								onClick={() => {
+									deleteBlogHandler(blog)
+								}}
+							>
+								Remove
+							</button>
 						</div>
 					)}
 				</div>

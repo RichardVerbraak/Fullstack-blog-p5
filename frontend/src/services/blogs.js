@@ -13,19 +13,37 @@ const getAllBlogs = async (token) => {
 	return data
 }
 
-const addNewBlog = async (blog, token) => {
+const addNewBlog = async (blog, user) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
+			Authorization: `Bearer ${user.token}`,
 		},
 	}
 
 	const { data } = await axios.post(
 		'http://localhost:3003/api/blogs',
-		blog,
+		{ blog, user },
 		config
 	)
+
+	return data
+}
+
+const deleteBlog = async (blog, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	}
+
+	console.log(blog.id)
+
+	const { data } = await axios.delete(
+		`http://localhost:3003/api/blogs/${blog.id}`,
+		config
+	)
+	console.log(data)
 
 	return data
 }
@@ -51,4 +69,4 @@ const likeBlog = async (blog, token) => {
 	return data
 }
 
-export { getAllBlogs, addNewBlog, likeBlog }
+export { getAllBlogs, addNewBlog, likeBlog, deleteBlog }
