@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getAllBlogs, likeBlog } from '../services/blogs'
 
 const Blogs = ({ blogs, user, setBlogs }) => {
-	const [showDetails, setShowDetails] = useState(false)
+	const [currentBlog, setCurrentBlog] = useState(null)
 
 	const blogStyle = {
 		padding: '10px 20px',
@@ -24,22 +24,32 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 					<p>
 						{blog.title} {blog.author}
 						<span>
-							<button
-								onClick={() => {
-									setShowDetails(!showDetails)
-								}}
-							>
-								View
-							</button>
+							{blog.id === currentBlog ? (
+								<button
+									onClick={() => {
+										setCurrentBlog(null)
+									}}
+								>
+									Hide
+								</button>
+							) : (
+								<button
+									onClick={() => {
+										setCurrentBlog(blog.id)
+									}}
+								>
+									View
+								</button>
+							)}
 						</span>
 					</p>
 				</div>
 
-				{showDetails && (
+				{blog.id === currentBlog && (
 					<div>
 						<p>{blog.url}</p>
 						<p>
-							{blog.likes}{' '}
+							{blog.likes}
 							<span>
 								<button
 									onClick={() => {
