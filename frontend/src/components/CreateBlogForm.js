@@ -44,7 +44,7 @@ const CreateBlogForm = ({ user, setBlogs }) => {
 		<div>
 			{message && <Message message={message} />}
 			<h2>Create new</h2>
-			<form className='form' onSubmit={onSubmitHandler}>
+			<form onSubmit={onSubmitHandler}>
 				<div>
 					<label>
 						Title:

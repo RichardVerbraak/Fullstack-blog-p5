@@ -32,7 +32,7 @@ const UserForm = ({ setUser }) => {
 	return (
 		<div>
 			{message && <Message message={message} />}
-			<form onSubmit={onSubmitHandler}>
+			<form className='login-form' onSubmit={onSubmitHandler}>
 				<div>
 					<label>
 						Username:
