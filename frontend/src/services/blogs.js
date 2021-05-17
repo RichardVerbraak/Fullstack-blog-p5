@@ -37,13 +37,10 @@ const deleteBlog = async (blog, token) => {
 		},
 	}
 
-	console.log(blog.id)
-
 	const { data } = await axios.delete(
 		`http://localhost:3003/api/blogs/${blog.id}`,
 		config
 	)
-	console.log(data)
 
 	return data
 }

@@ -49,9 +49,9 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 		})
 		.map((blog) => {
 			return (
-				<div key={blog.id} style={blogStyle}>
+				<div className='blog' key={blog.id} style={blogStyle}>
 					<div>
-						<p>
+						<p className='blog-title-author'>
 							{blog.title} {blog.author}
 							<span>
 								{blog.id === currentBlog ? (
@@ -64,6 +64,7 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 									</button>
 								) : (
 									<button
+										className='button-view'
 										onClick={() => {
 											setCurrentBlog(blog.id)
 										}}
@@ -77,11 +78,12 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 
 					{blog.id === currentBlog && (
 						<div>
-							<p>{blog.url}</p>
-							<p>
+							<p className='blog-url'>{blog.url}</p>
+							<p className='blog-likes'>
 								{blog.likes}
 								<span>
 									<button
+										className='button-like'
 										onClick={() => {
 											likeBlogHandler(blog, user.token)
 										}}
