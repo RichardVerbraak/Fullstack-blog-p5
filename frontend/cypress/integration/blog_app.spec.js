@@ -71,5 +71,21 @@ describe('Blog app', function () {
 
 			cy.get('.blog-likes').contains(1)
 		})
+
+		it('User can delete a blog', function () {
+			cy.contains('create blog')
+			cy.get('.button-show-create').click()
+			cy.get('#title').type('Season of Storms')
+			cy.get('#author').type('Andzrej Sapkowski')
+			cy.get('#url').type('something.com')
+
+			cy.get('.button-create').click()
+
+			cy.get('.button-view').click()
+
+			cy.get('.button-delete').click()
+
+			cy.get('.blogs').should('not.exist')
+		})
 	})
 })

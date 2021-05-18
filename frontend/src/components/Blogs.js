@@ -94,6 +94,7 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 							</p>
 							<p>Creator</p>
 							<button
+								className='button-delete'
 								onClick={() => {
 									deleteBlogHandler(blog)
 								}}
