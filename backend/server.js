@@ -3,8 +3,11 @@ const http = require('http')
 const connectDB = require('./config/db')
 const cors = require('cors')
 const dotenv = require('dotenv')
+
 const blogRoutes = require('./routes/blogRoutes')
 const userRoutes = require('./routes/userRoutes')
+const testRoutes = require('./routes/testRoutes')
+
 const errorHandler = require('./middleware/errorMiddleware')
 const tokenExtractor = require('./middleware/tokenMiddleware')
 
@@ -19,6 +22,10 @@ app.use(express.json())
 
 app.use(tokenExtractor)
 
+if (process.env.NODE_ENV === 'test') {
+	app.use('/api/test', testRoutes)
+}
+
 app.use('/api/blogs', blogRoutes)
 app.use('/api/users', userRoutes)
 
@@ -29,11 +36,7 @@ const PORT = process.env.PORT || 3003
 const server = http.createServer(app)
 
 server.listen(PORT, () => {
-	if (process.env.NODE_ENV !== 'test') {
-		console.log(
-			`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-		)
-	}
+	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 })
 
 module.exports = server

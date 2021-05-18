@@ -37,6 +37,7 @@ const UserForm = ({ setUser }) => {
 					<label>
 						Username:
 						<input
+							id='username'
 							type='text'
 							name='username'
 							value={username}
@@ -51,6 +52,7 @@ const UserForm = ({ setUser }) => {
 					<label>
 						Password:
 						<input
+							id='password'
 							type='password'
 							name='password'
 							value={password}
@@ -61,7 +63,9 @@ const UserForm = ({ setUser }) => {
 					</label>
 				</div>
 
-				<button type='submit'>Login</button>
+				<button className='login-button' type='submit'>
+					Login
+				</button>
 			</form>
 		</div>
 	)
