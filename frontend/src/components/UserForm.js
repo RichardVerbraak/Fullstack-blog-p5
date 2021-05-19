@@ -14,7 +14,6 @@ const UserForm = ({ setUser }) => {
 		try {
 			const response = await loginUser({ username, password })
 
-			console.log(response)
 			setUser(response)
 		} catch (error) {
 			const errorMessage = error.response

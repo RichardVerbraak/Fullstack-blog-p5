@@ -61,7 +61,9 @@ const App = () => {
 					</button>
 
 					{blogs && blogs.length > 0 && (
-						<Blogs blogs={blogs} user={user} setBlogs={setBlogs} />
+						<div className='blogs'>
+							<Blogs blogs={blogs} user={user} setBlogs={setBlogs} />
+						</div>
 					)}
 				</div>
 			) : (

@@ -79,19 +79,15 @@ const Blogs = ({ blogs, user, setBlogs }) => {
 					{blog.id === currentBlog && (
 						<div>
 							<p className='blog-url'>{blog.url}</p>
-							<p className='blog-likes'>
-								{blog.likes}
-								<span>
-									<button
-										className='button-like'
-										onClick={() => {
-											likeBlogHandler(blog, user.token)
-										}}
-									>
-										Like
-									</button>
-								</span>
-							</p>
+							<p className='blog-likes'>{blog.likes}</p>
+							<button
+								className='button-like'
+								onClick={() => {
+									likeBlogHandler(blog, user.token)
+								}}
+							>
+								Like
+							</button>
 							<p>Creator</p>
 							<button
 								className='button-delete'
